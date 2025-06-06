@@ -1,75 +1,132 @@
-# 💰 Expense Tracker Application
-
+Expense Tracker Application
 This is a full-stack personal finance tracking web application that allows users to manage their income and expenses, view a financial summary, and visualize spending habits by category.
 
-## 📸 Screenshots
+Table of Contents
+Features
 
-> Add screenshots to your repository under a `/screenshots` folder and update the paths below.
+Technologies Used
 
-| Dashboard | Add Transaction | Category Chart |
-|-----------|------------------|----------------|
-| ![Dashboard](screenshots/dashboard.png) | ![Add](screenshots/add-transaction.png) | ![Chart](screenshots/chart.png) |
+Getting Started
 
-## ✨ Features
+Prerequisites
 
-- Secure User Authentication (Signup/Login)
-- Add Income & Expense Transactions
-- View, Update, and Delete Transactions
-- Filter by Category, Start Date, and End Date
-- Display Financial Summary (Balance, Income, Expenses)
-- Pie Chart Breakdown by Category
+Backend Setup
 
-## 🛠️ Technologies Used
+Frontend Setup
 
-### Backend
-- Node.js
-- Express.js
-- MySQL
-- mysql2/promise
-- bcryptjs
-- jsonwebtoken (JWT)
-- cors
-- dotenv
-- nodemon
+Running the Application
 
-### Frontend
-- React.js
-- Tailwind CSS (CDN-based)
-- Recharts
-- Lucide React
-- create-react-app
+API Endpoints
 
-## 🚀 Getting Started
+Deployment
 
-### Prerequisites
+Contributing
 
-- Node.js & npm
-- MySQL Server (XAMPP/WAMP/MAMP or standalone)
-- Git
-- Postman (optional)
+License
 
-### Backend Setup
+Features
+User Authentication: Secure signup and login for individual users.
 
-```bash
+Transaction Management:
+
+Add new income and expense transactions.
+
+View a list of all transactions.
+
+Update existing transaction details.
+
+Delete transactions.
+
+Filtering: Filter transactions by category, start date, and end date.
+
+Financial Summary: Display current balance, total income, and total expenses.
+
+Category Visualization: A pie chart showing the breakdown of expenses/income by category.
+
+Technologies Used
+Backend
+Node.js: JavaScript runtime for building the server-side application.
+
+Express.js: Web framework for Node.js, used for building RESTful APIs.
+
+MySQL: Relational database for storing user and transaction data.
+
+mysql2/promise: Node.js MySQL client with Promises API.
+
+bcryptjs: For hashing and comparing user passwords securely.
+
+jsonwebtoken (JWT): For secure user authentication and authorization.
+
+cors: Middleware for enabling Cross-Origin Resource Sharing.
+
+dotenv: For loading environment variables from a .env file.
+
+nodemon (devDependencies): Utility that monitors for changes in your source and automatically restarts your server.
+
+Frontend
+React.js: JavaScript library for building the user interface.
+
+Tailwind CSS: A utility-first CSS framework for rapid UI development and styling.
+
+Recharts: A composable charting library built with React and D3.
+
+Lucide React: A set of beautiful and customizable open-source icons.
+
+create-react-app: Tool for setting up a new React project quickly.
+
+Getting Started
+Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
+
+Prerequisites
+Node.js: Make sure you have Node.js (and npm, which comes with Node.js) installed. You can download it from nodejs.org.
+
+MySQL Server: You need a running MySQL server instance. You can download and install MySQL Community Server or use a tool like XAMPP/WAMP (for Windows) or MAMP (for macOS).
+
+Git: For cloning the repository.
+
+Postman (Optional but Recommended): For testing API endpoints directly.
+
+Backend Setup
+Clone the repository (or navigate to your expense-tracker root if you already have it):
+
+# If your repo is structured with client and server folders at the root
 git clone [YOUR_REPOSITORY_URL]
-cd expense-tracker/server
-npm install
-Create a .env file inside server/ and add:
+cd expense-tracker
 
-env
-Copy
-Edit
+
+Navigate into the server directory:
+
+cd server
+
+
+Install backend dependencies:
+
+npm install
+
+
+Create a .env file: In the server directory, create a file named .env and add your MySQL and JWT configurations. Replace the placeholder values.
+
 DB_HOST=localhost
 DB_USER=your_mysql_user
 DB_PASSWORD=your_mysql_password
 DB_NAME=expense_tracker_db
-DB_PORT=3306
-JWT_SECRET=supersecurelongsecret
-Now create the database and tables:
+DB_PORT=3306 
 
-sql
-Copy
-Edit
+JWT_SECRET=supersecretjwtkeythatshouldbeverylongandrandom
+
+
+DB_USER, DB_PASSWORD: Your MySQL username and password.
+
+DB_NAME: The name you want for your database (e.g., expense_tracker_db).
+
+JWT_SECRET: A long, random string. You can generate one online.
+
+Create the MySQL Database and Tables:
+
+Open your MySQL client (e.g., MySQL Workbench, command line, or phpMyAdmin).
+
+Execute the following SQL commands to create the database and tables:
+
 CREATE DATABASE IF NOT EXISTS expense_tracker_db;
 
 USE expense_tracker_db;
@@ -91,115 +148,101 @@ CREATE TABLE IF NOT EXISTS transactions (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
-Then run the backend server:
 
-bash
-Copy
-Edit
+
+Test Backend Connection:
+
+Start the backend server to ensure it connects to the database successfully.
+
 npm start
-You should see messages like:
 
-pgsql
-Copy
-Edit
-✅ Successfully connected to the MySQL database!
-🚀 Server running on port 5000
+
+You should see Successfully connected to the MySQL database! and Server running on port 5000. Keep this terminal running.
+
 Frontend Setup
-Open a new terminal, navigate to the frontend:
+Navigate into the client directory (in a new terminal window):
 
-bash
-Copy
-Edit
-cd ../client
+cd ../client # If you're in the 'server' directory
+# OR
+# cd C:\Users\dks31\expense-tracker\client # If you're starting fresh
+
+
+Install frontend dependencies:
+
 npm install
-Configure Tailwind CSS (CDN Approach)
-Delete tailwind.config.js and postcss.config.js if present.
 
-Remove these lines from src/index.css if they exist:
 
-css
-Copy
-Edit
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-In public/index.html, before the closing </head> tag, add:
+Configure Tailwind CSS (CDN Approach):
 
-html
-Copy
-Edit
+Delete any existing tailwind.config.js and postcss.config.js files in the client directory if they exist.
+
+Open src/index.css and ensure it does NOT contain @tailwind base; @tailwind components; @tailwind utilities;. If it does, remove those lines.
+
+Open public/index.html and add the following lines just before the closing </head> tag:
+
+<!-- Tailwind CSS CDN - This will bypass PostCSS build errors -->
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 <style>
+  /* Apply Inter font globally */
   body {
     font-family: 'Inter', sans-serif;
   }
 </style>
-Update src/App.js:
 
-js
-Copy
-Edit
-const API_BASE_URL = 'http://localhost:5000/api';
-Start the React development server:
 
-bash
-Copy
-Edit
+Save public/index.html.
+
+Update API_BASE_URL in src/App.js:
+
+If you plan to deploy your backend to a live server later, you'll need to update const API_BASE_URL = 'http://localhost:5000/api'; to your deployed backend's URL (e.g., 'https://your-backend-app.render.com/api'). For local development, http://localhost:5000/api is correct.
+
+Running the Application
+Ensure your Backend server is running (from "Backend Setup" step 6, npm start in the server directory).
+
+Start the Frontend development server: In your client directory (in a separate terminal window), run:
+
 npm start
-Your app will be available at: http://localhost:3000
 
-🔌 API Endpoints
-All protected routes require x-auth-token header.
 
-Auth
-POST /api/auth/signup – Register new user
+This will usually open your application in your default web browser at http://localhost:3000.
 
-POST /api/auth/login – Login user and receive JWT
+API Endpoints
+The backend provides the following RESTful API endpoints:
 
-Transactions
-POST /api/transactions – Add new transaction
+Authentication
+POST /api/auth/signup - Register a new user.
 
-GET /api/transactions – Fetch all transactions (supports filters)
+POST /api/auth/login - Authenticate user and get a JWT token.
 
-PUT /api/transactions/:id – Update a transaction
+Transactions (Requires x-auth-token header for authorization)
+POST /api/transactions - Add a new transaction.
 
-DELETE /api/transactions/:id – Delete a transaction
+GET /api/transactions - Get all transactions for the authenticated user (supports category, startDate, endDate query filters).
 
-GET /api/transactions/summary – Get income, expense, balance
+PUT /api/transactions/:id - Update a specific transaction.
 
-GET /api/transactions/category-summary – Get pie chart data by category
+DELETE /api/transactions/:id - Delete a specific transaction.
 
-🌐 Deployment
-Frontend (React)
-Use Netlify or Vercel. Run:
+GET /api/transactions/summary - Get total income, expenses, and current balance (supports date and category filters).
 
-bash
-Copy
-Edit
-npm run build
-Deploy the client/build/ folder.
+GET /api/transactions/category-summary - Get transaction summary by category (supports date filters, for pie chart data).
 
-Backend (Node/Express)
-Use Render, Railway, Heroku, or other Node-compatible cloud platforms.
+Deployment
+This project consists of a separate frontend (React) and backend (Node.js/Express.js) and requires a database (MySQL).
 
-MySQL
-Use a cloud-hosted MySQL database like AWS RDS, PlanetScale, or Google Cloud SQL.
+Frontend (React App): Can be deployed to static site hosting services like Netlify or Vercel. You would build the React app (npm run build) and deploy the resulting build folder.
 
-Make sure to update API_BASE_URL in the frontend with your live backend URL and configure CORS in your backend for deployed frontend domain.
+Backend (Node.js/Express.js API): Requires a server-side hosting platform like Render, Heroku, or AWS Elastic Beanstalk.
 
-🤝 Contributing
-Fork the repository
+Database (MySQL): Requires a hosted MySQL service, such as those provided by cloud platforms (AWS RDS, Google Cloud SQL) or specialized database hosting (e.g., PlanetScale).
 
-Create a new branch: git checkout -b feature-name
+Note: For the deployed frontend to communicate with the deployed backend, ensure the API_BASE_URL in client/src/App.js is updated to the live backend URL, and configure CORS on your backend to allow requests from your frontend's deployed domain.
 
-Commit your changes: git commit -m "Add new feature"
+Contributing
+Feel free to fork this repository, make improvements, and submit pull requests.
 
-Push to the branch: git push origin feature-name
-
-Open a pull request
-
-📄 License
+License
 This project is licensed under the ISC License.
