@@ -41,9 +41,22 @@ A simple full-stack application to track income/expenses with visual reports.
 
 ## API Reference
 
-   **Endpoint**	      | **Method** |  **Description**    |
-------------------------|------------|---------------------|
-```/api/auth/signup```	| POST	    | User registration   |
-------------------------|------------|---------------------|
-```/api/transactions```	| GET	       | Get all transactions|
+|   **Endpoint**	      | **Method** |  **Description**    |
+|-----------------------|------------|---------------------|
+|```/api/auth/signup```	| POST	    | User registration   |
+|```/api/transactions```| GET	       | Get all transactions|
 
+##Common Issues & Fixes
+-Database connection failed: Verify MySQL is running and .env credentials are correct
+
+-CORS errors: Ensure backend URL is whitelisted in frontend (check src/App.js)
+
+##Contributing
+1.Fork the project
+2.Create your branch (```git checkout -b feature/your-feature```)
+3.Commit changes (```git commit -m 'Add some feature'```)
+4.Push to branch (```git push origin feature/your-feature```)
+5.Open a Pull Request
+
+License
+ISC © 2025 Dev Kumar Singh
