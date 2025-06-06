@@ -36,5 +36,14 @@ A simple full-stack application to track income/expenses with visual reports.
    npm install
    ```
 4. Run both servers
-   - Backend: ```bash npm start ```(in /server)
-   - Frontend: ```bash npm start```(in /client)
+   - Backend: ```npm start ```(in /server)
+   - Frontend: ```npm start```(in /client)
+
+## API Reference
+
+   **Endpoint**	      | **Method** |  **Description**    |
+------------------------|------------|---------------------|
+```/api/auth/signup```	| POST	    | User registration   |
+------------------------|------------|---------------------|
+```/api/transactions```	| GET	       | Get all transactions|
+
