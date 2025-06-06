@@ -11,7 +11,7 @@ A simple full-stack application to track income/expenses with visual reports.
 ## Screenshots
 | Login Page | Dashboard |
 |------------|-----------|
-| ![Login](login.png](https://github.com/DevKumarSingh262/Expense-Tracker-Web-Application/blob/main/screenshots/Log-in.png)](https://github.com/DevKumarSingh262/Expense-Tracker-Web-Application/blob/main/screenshots/Log-in.png?raw=true) | ![Dashboard](dashboard.png](https://github.com/DevKumarSingh262/Expense-Tracker-Web-Application/blob/main/screenshots/Dashboard(expense_tracker).png) |
+| ![Login](https://github.com/DevKumarSingh262/Expense-Tracker-Web-Application/blob/main/screenshots/Log-in.png?raw=true) | ![Dashboard](https://github.com/DevKumarSingh262/Expense-Tracker-Web-Application/blob/main/screenshots/Dashboard(expense_tracker).png?raw=true)|
 
 ## Technologies
 **Frontend:** React, Tailwind CSS  
