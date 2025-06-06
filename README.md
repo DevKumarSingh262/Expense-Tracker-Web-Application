@@ -52,7 +52,7 @@ A simple full-stack application to track income/expenses with visual reports.
 
 -CORS errors: Ensure backend URL is whitelisted in frontend (check src/App.js)
 
-##Contributing
+## Contributing
 
 1.Fork the project
 
