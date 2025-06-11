@@ -1,5 +1,3 @@
-// server/routes/transactions.js
-
 const express = require('express');
 const router = express.Router();
 const {
@@ -18,11 +16,12 @@ const authMiddleware = require('../middleware/auth'); // We will create this mid
  * @access Private
  */
 router.post('/', authMiddleware, async (req, res) => {
-  const { amount, description, transactionDate, category } = req.body;
+  // Destructure with correct name (snake_case) to match frontend
+  const { amount, description, transaction_date, category } = req.body; 
   const userId = req.user.id; // User ID from auth middleware
 
   // Basic validation
-  if (!amount || !description || !transactionDate || !category) {
+  if (!amount || !description || !transaction_date || !category) { // Use transaction_date
     return res.status(400).json({ message: 'Please enter all required fields' });
   }
 
@@ -32,19 +31,20 @@ router.post('/', authMiddleware, async (req, res) => {
   }
 
   // Basic date format validation (YYYY-MM-DD)
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(transactionDate)) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(transaction_date)) { // Use transaction_date
     return res.status(400).json({ message: 'Transaction date must be in YYYY-MM-DD format' });
   }
 
   try {
-    const newTransaction = await createTransaction(userId, amount, description, transactionDate, category);
+    // Pass transaction_date to the createTransaction model function
+    const newTransaction = await createTransaction(userId, amount, description, transaction_date, category); 
     res.status(201).json({
       message: 'Transaction added successfully',
       transaction: {
         id: newTransaction.id,
         amount,
         description,
-        transactionDate,
+        transaction_date, // Send back transaction_date in response
         category,
         userId
       }
@@ -100,7 +100,8 @@ router.put('/:id', authMiddleware, async (req, res) => {
   }
 
   // Basic date format validation (YYYY-MM-DD) if provided
-  if (updates.transactionDate && !/^\d{4}-\d{2}-\d{2}$/.test(updates.transactionDate)) {
+  // Check if transaction_date exists and validate it
+  if (updates.transaction_date && !/^\d{4}-\d{2}-\d{2}$/.test(updates.transaction_date)) {
     return res.status(400).json({ message: 'Transaction date must be in YYYY-MM-DD format if provided' });
   }
 
