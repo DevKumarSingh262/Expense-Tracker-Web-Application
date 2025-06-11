@@ -8,6 +8,27 @@ const API_BASE_URL = 'http://localhost:5000/api';
 // --- AuthContext: For managing authentication state globally ---
 const AuthContext = createContext(null);
 
+// Helper function to ensure date is in YYYY-MM-DD format for HTML date inputs
+function formatDateForInput(dateString) {
+  if (!dateString) return '';
+  try {
+    const date = new Date(dateString);
+    // Check for invalid date (e.g., "invalid date" passed to Date constructor)
+    if (isNaN(date.getTime())) {
+      console.warn("formatDateForInput received invalid date string:", dateString); // Added warning
+      return ''; // Return empty if date string is invalid
+    }
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  } catch (e) {
+    console.error("Error formatting date:", e, "Input:", dateString); // Enhanced error log
+    return '';
+  }
+}
+
+
 // --- AuthForm Component: Handles Login and Signup ---
 function AuthForm({ onAuthSuccess, isSignUp, setCurrentPage }) {
   const [email, setEmail] = useState('');
@@ -128,7 +149,7 @@ function TransactionForm({ transactionToEdit, onSave, onCancel }) {
   const [amount, setAmount] = useState(transactionToEdit?.amount || '');
   const [description, setDescription] = useState(transactionToEdit?.description || '');
   const [transactionDate, setTransactionDate] = useState(
-    transactionToEdit?.transaction_date ? transactionToEdit.transaction_date.split('T')[0] : ''
+    transactionToEdit?.transaction_date ? formatDateForInput(transactionToEdit.transaction_date) : ''
   );
   const [category, setCategory] = useState(transactionToEdit?.category || '');
   const [error, setError] = useState('');
@@ -145,7 +166,7 @@ function TransactionForm({ transactionToEdit, onSave, onCancel }) {
     if (transactionToEdit) {
       setAmount(transactionToEdit.amount);
       setDescription(transactionToEdit.description);
-      setTransactionDate(transactionToEdit.transaction_date.split('T')[0]);
+      setTransactionDate(formatDateForInput(transactionToEdit.transaction_date));
       setCategory(transactionToEdit.category);
     } else {
       // Reset form if not editing
@@ -162,21 +183,39 @@ function TransactionForm({ transactionToEdit, onSave, onCancel }) {
     setError('');
     setLoading(true);
 
-    if (!amount || !description || !transactionDate || !category) {
-      setError('All fields are required.');
+    // Log the current state of transactionDate before validation
+    console.log("TransactionDate state before validation:", transactionDate); 
+
+    if (!amount || amount === '') {
+      setError('Amount is required and must be a valid number.');
+      setLoading(false);
+      return;
+    }
+    if (isNaN(amount)) { // Additional check for non-numeric input for robustness
+      setError('Amount must be a valid number.');
+      setLoading(false);
+      return;
+    }
+    if (!description) {
+      setError('Description is required.');
+      setLoading(false);
+      return;
+    }
+    if (!transactionDate) { // This is the check that's likely failing
+      setError('Date is required.');
+      setLoading(false);
+      return;
+    }
+    if (!category) {
+      setError('Category is required.');
       setLoading(false);
       return;
     }
 
-    if (isNaN(amount) || amount === '') {
-        setError('Amount must be a valid number.');
-        setLoading(false);
-        return;
-    }
-
-    // Basic date format validation (YYYY-MM-DD)
+    // This validation should now pass correctly because formatDateForInput ensures the format
+    // if the date is actually set.
     if (!/^\d{4}-\d{2}-\d{2}$/.test(transactionDate)) {
-        setError('Date must be in YYYY-MM-DD format.');
+        setError('Date must be in YYYY-MM-DD format.'); // Changed generic error to specific for date
         setLoading(false);
         return;
     }
@@ -184,7 +223,7 @@ function TransactionForm({ transactionToEdit, onSave, onCancel }) {
     const transactionData = {
       amount: parseFloat(amount), // Ensure amount is a number
       description,
-      transactionDate,
+      transaction_date: transactionDate, // Corrected column name as per previous fix
       category,
     };
 
@@ -561,6 +600,7 @@ function Dashboard() {
   };
 
   const handleEditTransaction = (transaction) => {
+    console.log("Transaction being edited:", transaction); // Added for debugging
     setTransactionToEdit(transaction);
     setShowTransactionForm(true);
   };
@@ -581,7 +621,7 @@ function Dashboard() {
       handleTransactionSave(); // Refresh data after deletion
     } catch (err) {
       console.error('Delete transaction error:', err);
-      alert(err.message || 'Error deleting transaction.');
+      setTransactionsError(err.message || 'Error deleting transaction.'); 
     }
   };
 
@@ -621,7 +661,7 @@ function Dashboard() {
               aria-label="Filter by category"
             >
               {categories.map((cat) => (
-                <option key={cat} value={cat === 'All' ? '' : cat}>{cat}</option>
+                <option key={cat} value={cat}>{cat}</option>
               ))}
             </select>
           </div>
