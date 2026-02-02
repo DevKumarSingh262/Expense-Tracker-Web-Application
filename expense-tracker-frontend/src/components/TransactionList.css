@@ -1,0 +1,192 @@
+.transaction-list-container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+}
+
+.transaction-list-container h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #5843be;
+    margin: 0 0 25px 0;
+}
+
+.no-transactions {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+    font-size: 16px;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.transaction-table thead {
+    background: #eef2f7;
+}
+
+.transaction-table th {
+    padding: 16px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.transaction-table tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+    transition: background 0.2s ease;
+}
+
+.transaction-table tbody tr:hover {
+    background: #f9fafb;
+}
+
+.transaction-table td {
+    padding: 18px 16px;
+    font-size: 15px;
+    color: #333;
+}
+
+.amount-income {
+    color: #22c55e;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.amount-expense {
+    color: #ef4444;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.action-icons {
+    display: flex;
+    gap: 8px;
+}
+
+.icon-btn {
+    padding: 8px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-btn {
+    color: #5843be;
+}
+
+.edit-btn:hover {
+    background: #f3f0ff;
+    transform: scale(1.1);
+}
+
+.delete-btn {
+    color: #ef4444;
+}
+
+.delete-btn:hover {
+    background: #fee;
+    transform: scale(1.1);
+}
+
+/* Delete Confirmation Modal */
+.delete-confirm-modal {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    animation: slideUp 0.3s ease;
+}
+
+.delete-confirm-modal h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 15px 0;
+}
+
+.delete-confirm-modal p {
+    font-size: 15px;
+    color: #666;
+    margin: 0 0 25px 0;
+    line-height: 1.5;
+}
+
+.delete-confirm-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.delete-confirm-btn {
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #ef4444;
+    color: white;
+}
+
+.delete-confirm-btn:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+@media (max-width: 768px) {
+    .transaction-list-container {
+        padding: 20px;
+    }
+    
+    .transaction-list-container h2 {
+        font-size: 22px;
+    }
+    
+    .transaction-table {
+        font-size: 14px;
+    }
+    
+    .transaction-table th,
+    .transaction-table td {
+        padding: 12px 8px;
+    }
+    
+    .transaction-table th {
+        font-size: 11px;
+    }
+
+    .delete-confirm-modal {
+        padding: 20px;
+        margin: 20px;
+    }
+
+    .delete-confirm-actions {
+        flex-direction: column;
+    }
+
+    .cancel-btn,
+    .delete-confirm-btn {
+        width: 100%;
+    }
+}
